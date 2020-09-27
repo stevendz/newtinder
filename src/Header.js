@@ -14,20 +14,16 @@ const LogoImg = styled.img`
 height: 40px;
 `;
 
-class Header extends Component {
-    render() {
-        return (
-            <Navbar>
-                <IconButton onClick={() => { console.log('profile') }}>
-                    <PersonIcon fontSize='large' />
-                </IconButton>
-                <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
-                <IconButton>
-                    <ForumIcon fontSize='large' />
-                </IconButton>
-            </Navbar>
-        )
-    }
+export default function Header() {
+    return (
+        <Navbar>
+            <IconButton onClick={() => { console.log('profile') }}>
+                <PersonIcon fontSize='large' />
+            </IconButton>
+            <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
+            <IconButton>
+                <ForumIcon fontSize='large' />
+            </IconButton>
+        </Navbar>
+    )
 }
-
-export default Header;

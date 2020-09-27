@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/chat'>
-            <h1>I am the chat page 💭</h1>
+            <h1>I am the chat page <span role='img' aria-label='Rocket'>💭</span></h1>
           </Route>
           <Route path='/'>
             <TinderCards />

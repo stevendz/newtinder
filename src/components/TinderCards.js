@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import TinderCard from 'react-tinder-card'
+import styled from 'styled-components'
 import MyTinderCard from './MyTinderCard'
+
+const TinderCardsContainer = styled.div`
+display:flex;
+justify-content:center;
+margin-top:5vh;
+>*{
+    position:absolute;
+}
+`;
 
 function TinderCards() {
     const [people, setPeople] = useState([
@@ -9,14 +19,13 @@ function TinderCards() {
     ])
     return (
 
-        <div>
-            <h1>Tinder Cards</h1>
+        <TinderCardsContainer>
             {people.map(person => (
                 <TinderCard key={person.name} preventSwipe={['up', 'down']}>
                     <MyTinderCard person={person} />
                 </TinderCard>
             ))}
-        </div>
+        </TinderCardsContainer>
     )
 }
 

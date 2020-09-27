@@ -14,7 +14,7 @@ const Card = styled.div`
     height: 50vh;
     border-radius: 20px;
     color: #fff;
-    box-shadow: 0 18px 53px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 18px 50px 0 rgba(0,0,0,0.5);
     `
 
 function MyTinderCard({ person }) {

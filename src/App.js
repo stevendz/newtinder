@@ -3,16 +3,18 @@ import React from 'react';
 import Header from './components/Header';
 import TinderCards from './components/TinderCards';
 import SwipeButtons from './components/SwipeButtons';
+import Chats from './components/Chats';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
         <Switch>
           <Route exact path='/chat'>
-            <h1>I am the chat page <span role='img' aria-label='Rocket'>💭</span></h1>
+            <Header backButton='/' />
+            <Chats />
           </Route>
           <Route path='/'>
+            <Header />
             <TinderCards />
             <SwipeButtons />
           </Route>

@@ -15,6 +15,7 @@ margin-top:5vh;
 
 function TinderCards() {
     const [people, setPeople] = useState([])
+
     useEffect(() => {
         const unsubscribe = database
             .collection('people')
@@ -25,6 +26,7 @@ function TinderCards() {
             unsubscribe();
         }
     }, [people])
+
     return (
 
         <TinderCardsContainer>

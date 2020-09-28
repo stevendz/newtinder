@@ -32,7 +32,7 @@ color:lightsteelblue;
 function Chat({ name, message, timestamp, profilePic }) {
     return (
         <ChatContainer>
-            <Avatar alt={name} src={profilePic} />
+            {profilePic ? <Avatar alt={name} src={profilePic} /> : <Avatar>{name.substring(0, 2)}</Avatar>}
             <ChatMessage><h3>{name}</h3><span>{message}</span></ChatMessage>
             <TimeStamp>{timestamp}</TimeStamp>
         </ChatContainer>

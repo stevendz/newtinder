@@ -20,7 +20,7 @@ function Chats() {
                 name='Sarah'
                 message='Hey! how are you 😊'
                 timestamp='35 minutes ago'
-                profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
+            // profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
             />
             <Chat
                 name='Ellen'

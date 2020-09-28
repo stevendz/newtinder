@@ -25,10 +25,9 @@ function TinderCards() {
         return () => {
             unsubscribe();
         }
-    }, [people])
+    }, [])
 
     return (
-
         <TinderCardsContainer>
             {people.map(person => (
                 <TinderCard key={person.name} preventSwipe={['up', 'down']}>

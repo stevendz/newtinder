@@ -31,7 +31,7 @@ export default function Header({ backButton }) {
             <Link to='/'>
                 <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
             </Link>
-            <Link to='/chat'>
+            <Link to='/chats'>
                 <IconButton>
                     <ForumIcon fontSize='large' />
                 </IconButton>

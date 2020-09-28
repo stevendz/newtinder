@@ -1,5 +1,6 @@
 import Avatar from '@material-ui/core/Avatar'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const ChatContainer = styled.div`
@@ -28,14 +29,23 @@ display:flex;
 align-items:center;
 color:lightsteelblue;
 `
+const StyledLink = styled(Link)`
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
 
 function Chat({ name, message, timestamp, profilePic }) {
     return (
-        <ChatContainer>
-            {profilePic ? <Avatar alt={name} src={profilePic} /> : <Avatar>{name.substring(0, 2)}</Avatar>}
-            <ChatMessage><h3>{name}</h3><span>{message}</span></ChatMessage>
-            <TimeStamp>{timestamp}</TimeStamp>
-        </ChatContainer>
+        <StyledLink to={`/chats/${name}`} >
+            <ChatContainer>
+                {profilePic ? <Avatar alt={name} src={profilePic} /> : <Avatar>{name.substring(0, 2)}</Avatar>}
+                <ChatMessage><h3>{name}</h3><span>{message}</span></ChatMessage>
+                <TimeStamp>{timestamp}</TimeStamp>
+            </ChatContainer>
+        </StyledLink>
     )
 }
 

@@ -14,7 +14,7 @@ margin-top:5vh;
 `;
 
 function TinderCards() {
-    const [people, setPeople] = useState([])
+    const [people, setPeople] = useState()
 
     useEffect(() => {
         const unsubscribe = database
@@ -29,7 +29,7 @@ function TinderCards() {
 
     return (
         <TinderCardsContainer>
-            {people.map(person => (
+            {people?.map(person => (
                 <TinderCard key={person.name} preventSwipe={['up', 'down']}>
                     <MyTinderCard person={person} />
                 </TinderCard>

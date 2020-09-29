@@ -1,33 +1,33 @@
-import React from 'react'
+import database from '../firebase'
+import React, { useEffect, useState } from 'react'
 import Chat from './Chat'
 
 function Chats() {
+    const [chats, setChats] = useState()
+    useEffect(() => {
+        const unsubscribe = database
+            .collection('chats')
+            .where('members', 'array-contains', 'Steven')
+            .onSnapshot(snapshot => (
+                setChats(snapshot.docs.map(doc => doc))
+            ))
+
+        return () => {
+            unsubscribe();
+        }
+    }, [])
     return (
         <div>
-            <Chat
-                name='Sarah'
-                message='Hey! how are you 😊'
-                timestamp='35 minutes ago'
-                profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
-            />
-            <Chat
-                name='Ellen'
-                message='Whats up?'
-                timestamp='12 minutes ago'
-                profilePic='https://smartcdn.prod.postmedia.digital/nationalpost/wp-content/uploads/2019/02/cpt118-the-associated-press.jpg?quality=100&strip=all&w=642'
-            />
-            <Chat
-                name='Sarah'
-                message='Hey! how are you 😊'
-                timestamp='35 minutes ago'
-            // profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
-            />
-            <Chat
-                name='Ellen'
-                message='Whats up?'
-                timestamp='12 minutes ago'
-                profilePic='https://smartcdn.prod.postmedia.digital/nationalpost/wp-content/uploads/2019/02/cpt118-the-associated-press.jpg?quality=100&strip=all&w=642'
-            />
+            {chats?.map(chat =>
+                <Chat
+                    key={chat.id}
+                    id={chat.id}
+                    name={chat.data().members[0]}
+                    message='Hey! how are you 😊'
+                    timestamp='35 minutes ago'
+                    profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
+                />
+            )}
         </div>
     )
 }

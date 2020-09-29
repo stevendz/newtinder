@@ -37,9 +37,9 @@ const StyledLink = styled(Link)`
     }
 `;
 
-function Chat({ name, message, timestamp, profilePic }) {
+function Chat({ name, message, timestamp, profilePic, id }) {
     return (
-        <StyledLink to={`/chats/${name}`} >
+        <StyledLink to={`/chats/${id}`} >
             <ChatContainer>
                 {profilePic ? <Avatar alt={name} src={profilePic} /> : <Avatar>{name.substring(0, 2)}</Avatar>}
                 <ChatMessage><h3>{name}</h3><span>{message}</span></ChatMessage>

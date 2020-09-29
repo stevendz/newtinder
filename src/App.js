@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path='/chats/:person'>
+          <Route exact path='/chats/:id'>
             <Header backButton='/chats' />
             <ChatScreen />
           </Route>

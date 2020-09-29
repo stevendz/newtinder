@@ -1,7 +1,7 @@
 import Avatar from '@material-ui/core/Avatar'
-import React from 'react'
+import database from '../firebase'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import InvisibleLink from './InvisibleLink'
 
 const ChatContainer = styled.div`
 display:flex;
@@ -31,12 +31,34 @@ align-items:center;
 color:lightsteelblue;
 `
 
-function Chat({ name, message, timestamp, profilePic }) {
+function Chat({ chat, chatPartner }) {
+    const [partnerProfilePic, setPartnerProfilePic] = useState()
+    const [lastMessage, setLastMessage] = useState()
+    const [timestamp, setTimestamp] = useState()
+
+    useEffect(() => {
+        database
+            .collection('people')
+            .where('name', '==', chatPartner)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    setPartnerProfilePic(doc.data().url);
+                });
+            })
+        const receivedMessages = chat.messages.filter(item => item.sender !== 'Steven')
+        if (receivedMessages) {
+            const count = receivedMessages.length
+            setLastMessage(receivedMessages[count - 1].message)
+            setTimestamp(Math.floor(Date.now() / 1000) - receivedMessages[count - 1].timestamp.seconds)
+        }
+    }, [])
+
     return (
         <ChatContainer>
-            {profilePic ? <Avatar alt={name} src={profilePic} /> : <Avatar>{name.substring(0, 2)}</Avatar>}
-            <ChatMessage><h3>{name}</h3><span>{message}</span></ChatMessage>
-            <TimeStamp>{timestamp}</TimeStamp>
+            {partnerProfilePic ? <Avatar alt={chatPartner} src={partnerProfilePic} /> : <Avatar>{chatPartner.substring(0, 2)}</Avatar>}
+            <ChatMessage><h3>{chatPartner}</h3><span>{lastMessage}</span></ChatMessage>
+            <TimeStamp>{timestamp} seconds ago</TimeStamp>
         </ChatContainer>
     )
 }

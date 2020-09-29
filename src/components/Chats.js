@@ -19,17 +19,18 @@ function Chats() {
     }, [])
     return (
         <div>
-            {chats?.map(chat =>
-                <InvisibleLink to={`/chats/${chat.id}`} >
-                    <Chat
-                        key={chat.id}
-                        name={chat.data().members[0]}
-                        message='Hey! how are you 😊'
-                        timestamp='35 minutes ago'
-                        profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
-                    />
-                </InvisibleLink>
-            )}
+            {chats?.map(chat => {
+                const chatPartner = chat.data().members.filter(item => item !== 'Steven').toString()
+                return (
+                    <InvisibleLink to={`/chats/${chat.id}`} >
+                        <Chat
+                            key={chat.id}
+                            chat={chat.data()}
+                            chatPartner={chatPartner}
+                        />
+                    </InvisibleLink>
+                )
+            })}
         </div>
     )
 }

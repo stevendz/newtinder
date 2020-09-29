@@ -1,6 +1,7 @@
 import database from '../firebase'
 import React, { useEffect, useState } from 'react'
 import Chat from './Chat'
+import InvisibleLink from './InvisibleLink'
 
 function Chats() {
     const [chats, setChats] = useState()
@@ -19,14 +20,15 @@ function Chats() {
     return (
         <div>
             {chats?.map(chat =>
-                <Chat
-                    key={chat.id}
-                    id={chat.id}
-                    name={chat.data().members[0]}
-                    message='Hey! how are you 😊'
-                    timestamp='35 minutes ago'
-                    profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
-                />
+                <InvisibleLink to={`/chats/${chat.id}`} >
+                    <Chat
+                        key={chat.id}
+                        name={chat.data().members[0]}
+                        message='Hey! how are you 😊'
+                        timestamp='35 minutes ago'
+                        profilePic='https://www.crew-united.com/Media/Images/1028/1028860/1028860.entity.4_3.jpg'
+                    />
+                </InvisibleLink>
             )}
         </div>
     )

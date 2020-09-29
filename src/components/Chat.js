@@ -50,7 +50,7 @@ function Chat({ chat, chatPartner }) {
         if (receivedMessages) {
             const count = receivedMessages.length
             setLastMessage(receivedMessages[count - 1].message)
-            setTimestamp(Math.floor(Date.now() / 1000) - receivedMessages[count - 1].timestamp.seconds)
+            setTimestamp(Math.floor((Date.now() - receivedMessages[count - 1].timestamp) / 60000))
         }
     }, [])
 
@@ -58,7 +58,7 @@ function Chat({ chat, chatPartner }) {
         <ChatContainer>
             {partnerProfilePic ? <Avatar alt={chatPartner} src={partnerProfilePic} /> : <Avatar>{chatPartner.substring(0, 2)}</Avatar>}
             <ChatMessage><h3>{chatPartner}</h3><span>{lastMessage}</span></ChatMessage>
-            <TimeStamp>{timestamp} seconds ago</TimeStamp>
+            <TimeStamp>{timestamp} minutes ago</TimeStamp>
         </ChatContainer>
     )
 }

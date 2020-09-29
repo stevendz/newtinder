@@ -64,7 +64,7 @@ function ChatScreen() {
                     : <Message>{message.message}</Message>
                 )}
             </MessageContainer>
-            <SendMessageInput />
+            <SendMessageInput id={id} sender='Steven' />
         </ChatScreenContainer>
     )
 }

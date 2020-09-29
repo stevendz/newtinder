@@ -1,8 +1,10 @@
 import { Button, TextField } from '@material-ui/core'
+import database from '../firebase'
+import firebase from 'firebase'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const SendMessageInputContainer = styled.form`
+const SendMessageInputContainer = styled.div`
 display:flex;
 align-items:flex-end;
 >:first-child{
@@ -10,7 +12,7 @@ align-items:flex-end;
 }
 `
 
-function SendMessageInput() {
+function SendMessageInput({ id, sender }) {
     const [message, setMessage] = useState('')
     return (
         <SendMessageInputContainer>
@@ -19,7 +21,16 @@ function SendMessageInput() {
         </SendMessageInputContainer>
     )
     function sendMessage() {
-        console.log(message)
+        console.log(id)
+        console.log(sender)
+        database.collection('chats').doc(id)
+            .update({
+                messages: firebase.firestore.FieldValue.arrayUnion({
+                    sender: 'Maria',
+                    message,
+                    timestamp: Date.now()
+                })
+            })
     }
 }
 

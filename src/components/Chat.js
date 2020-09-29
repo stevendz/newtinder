@@ -46,7 +46,7 @@ function Chat({ chat, chatPartner }) {
                     setPartnerProfilePic(doc.data().url);
                 });
             })
-        const receivedMessages = chat.messages.filter(item => item.sender !== 'Steven')
+        const receivedMessages = chat.messages.filter(member => member.sender !== 'Steven')
         if (receivedMessages) {
             const count = receivedMessages.length
             setLastMessage(receivedMessages[count - 1].message)

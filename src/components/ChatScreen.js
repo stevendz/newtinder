@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import database from '../firebase'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SendMessageInput from './SendMessageInput'
@@ -39,28 +40,26 @@ padding:1.5vh;
 
 function ChatScreen() {
     const { id } = useParams()
-    const [messages, setMessages] = useState([
-        { name: 'Ellen', message: 'hello there' },
-        { name: 'Ellen', message: 'how are you' },
-        { name: 'Steven', message: 'fine and you' },
-        { name: 'Ellen', message: 'ok' },
-        { name: 'Steven', message: 'bye' },
-        { name: 'Ellen', message: 'hello there' },
-        { name: 'Ellen', message: 'how are you' },
-        { name: 'Steven', message: 'fine and you' },
-        { name: 'Ellen', message: 'ok' },
-        { name: 'Steven', message: 'bye' },
-        { name: 'Ellen', message: 'hello there' },
-        { name: 'Ellen', message: 'how are you' },
-        { name: 'Steven', message: 'fine and you' },
-        { name: 'Ellen', message: 'ok' },
-        { name: 'Steven', message: 'bye' },
-    ])
+    const [messages, setMessages] = useState()
+    const [chatPartner, setChatPartner] = useState()
+    useEffect(() => {
+        const unsubscribe = database
+            .collection('chats')
+            .doc(id)
+            .onSnapshot(snapshot => {
+                setMessages(snapshot.data().messages)
+                setChatPartner(snapshot.data().members.filter(member => member !== 'Steven').toString())
+            })
+
+        return () => {
+            unsubscribe();
+        }
+    }, [])
     return (
         <ChatScreenContainer>
-            <MatchedText>YOU MATCHED WITH {id.toUpperCase()} ON 10/08/20</MatchedText>
+            <MatchedText>YOU MATCHED WITH {chatPartner?.toUpperCase()} ON 10/08/20</MatchedText>
             <MessageContainer>
-                {messages?.map(message => message.name === 'Steven'
+                {messages?.map(message => message.sender === 'Steven'
                     ? <MyMessage>{message.message}</MyMessage>
                     : <Message>{message.message}</Message>
                 )}

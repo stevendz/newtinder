@@ -1,10 +1,10 @@
 import { Button, TextField } from '@material-ui/core'
 import { database } from '../firebase'
 import firebase from 'firebase'
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 
-const SendMessageInputContainer = styled.div`
+const SendMessageInputContainer = styled.form`
 display:flex;
 align-items:flex-end;
 >:first-child{
@@ -13,25 +13,30 @@ align-items:flex-end;
 `
 
 function SendMessageInput({ id, sender }) {
-    const [message, setMessage] = useState('')
+    const handleSendMessage = useCallback(async event => {
+        event.preventDefault()
+        const { message } = event.target.elements
+        try {
+            database.collection('chats').doc(id)
+                .update({
+                    messages: firebase.firestore.FieldValue.arrayUnion({
+                        sender,
+                        message: message.value,
+                        timestamp: Date.now()
+                    })
+                })
+            message.value = ''
+
+        } catch (error) {
+            alert(error)
+        }
+    }, [])
     return (
-        <SendMessageInputContainer>
-            <TextField onChange={field => setMessage(field.target.value)} />
-            <Button onClick={sendMessage} disableElevation color='primary' variant="contained" size="large">Send</Button>
+        <SendMessageInputContainer onSubmit={handleSendMessage}>
+            <TextField name='message' />
+            <Button type='submit' disableElevation color='primary' variant="contained" size="large">Send</Button>
         </SendMessageInputContainer>
     )
-    function sendMessage() {
-        console.log(id)
-        console.log(sender)
-        database.collection('chats').doc(id)
-            .update({
-                messages: firebase.firestore.FieldValue.arrayUnion({
-                    sender: 'Steven',
-                    message,
-                    timestamp: Date.now()
-                })
-            })
-    }
 }
 
 export default SendMessageInput

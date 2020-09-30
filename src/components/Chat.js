@@ -1,7 +1,8 @@
 import Avatar from '@material-ui/core/Avatar'
 import { database } from '../firebase'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { AuthContext } from './AuthProvider'
 
 const ChatContainer = styled.div`
 display:flex;
@@ -31,22 +32,20 @@ align-items:center;
 color:lightsteelblue;
 `
 
-function Chat({ chat, chatPartner }) {
-    const [partnerProfilePic, setPartnerProfilePic] = useState()
+function Chat({ chat, chatPartnerUid }) {
+    const { currentUser } = useContext(AuthContext)
+    const [chatPartner, setChatPartner] = useState()
     const [lastMessage, setLastMessage] = useState()
     const [timestamp, setTimestamp] = useState()
 
     useEffect(() => {
         database
-            .collection('people')
-            .where('name', '==', chatPartner)
+            .collection('users')
+            .doc(chatPartnerUid)
             .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    setPartnerProfilePic(doc.data().url);
-                });
-            })
-        const receivedMessages = chat.messages.filter(member => member.sender !== 'Steven')
+            .then(doc => setChatPartner(doc.data()))
+
+        const receivedMessages = chat.messages.filter(member => member.sender !== currentUser.uid)
         if (receivedMessages) {
             const count = receivedMessages.length
             setLastMessage(receivedMessages[count - 1].message)
@@ -54,13 +53,16 @@ function Chat({ chat, chatPartner }) {
         }
     }, [])
 
-    return (
-        <ChatContainer>
-            {partnerProfilePic ? <Avatar alt={chatPartner} src={partnerProfilePic} /> : <Avatar>{chatPartner.substring(0, 2)}</Avatar>}
-            <ChatMessage><h3>{chatPartner}</h3><span>{lastMessage}</span></ChatMessage>
-            <TimeStamp>{timestamp} minutes ago</TimeStamp>
-        </ChatContainer>
-    )
+    if (chatPartner) {
+
+        return (
+            <ChatContainer>
+                <Avatar alt={chatPartner.username} src={chatPartner.profilePic} />
+                <ChatMessage><h3>{chatPartner.username}</h3><span>{lastMessage}</span></ChatMessage>
+                <TimeStamp>{timestamp} minutes ago</TimeStamp>
+            </ChatContainer>
+        )
+    } return <span>Loading...</span>
 }
 
 export default Chat

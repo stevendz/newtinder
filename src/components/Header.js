@@ -21,7 +21,7 @@ export default function Header({ backButton }) {
     return (
         <Navbar>
             {backButton
-                ? <IconButton onClick={() => history.replace(backButton)}>
+                ? <IconButton onClick={() => history.goBack()}>
                     <ArrowBackIosIcon fontSize='large' />
                 </IconButton>
                 : <IconButton onClick={() => { console.log('profile') }}>

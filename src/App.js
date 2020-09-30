@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import ChatsScreen from './screens/ChatsScreen';
 import SwipeScreen from './screens/SwipeScreen';
 import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SingUpScreen';
 function App() {
   return (
     <AuthProvider>
@@ -14,6 +15,7 @@ function App() {
           <PrivateRoute exact path='/chats/:id' component={ChatScreen} />
           <PrivateRoute exact path='/chats' component={ChatsScreen} />
           <PrivateRoute exact path='/home' component={SwipeScreen} />
+          <Route path='/signup' component={SignUpScreen} />
           <Route path='/' component={LoginScreen} />
         </Switch>
       </Router>

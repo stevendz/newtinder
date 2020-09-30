@@ -8,7 +8,7 @@ function AuthProvider({ children }) {
     useEffect(() => {
         app.auth().onAuthStateChanged(setCurrentUser)
     }, [])
-    console.log(currentUser)
+    console.log(currentUser?.uid)
     return (
         <AuthContext.Provider
             value={{ currentUser }}

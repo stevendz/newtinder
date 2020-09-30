@@ -1,5 +1,6 @@
 import { Button, TextField } from '@material-ui/core'
-import React from 'react'
+import { app } from '../firebase'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 
 const LoginForm = styled.form`
@@ -8,17 +9,34 @@ flex-direction:column;
 justify-content:center;
 height: 100vh;
 padding: 20px;
+>h1{
+    margin-bottom:20px
+}
+>div{
+    margin-bottom:20px
+}
 `
 
-function LoginScreen() {
+function LoginScreen({ history }) {
+    const handleLogin = useCallback(async event => {
+        event.preventDefault()
+        const { email, password } = event.target.elements
+        try {
+            await app.signInWithEmailAndPassword(email.value, password.value)
+            history.push('/home')
+        } catch (error) {
+            alert(error)
+        }
+    }, [])
     return (
-        <LoginForm>
+        <LoginForm onSubmit={handleLogin}>
             <h1>Login Screen</h1>
             <TextField label="Email" name='email' variant="outlined" />
             <TextField label="Password" name='password' variant="outlined" />
             <Button type='submit' disableElevation color='primary' variant="contained" size="large">Login</Button>
         </LoginForm>
     )
+
 }
 
 export default LoginScreen

@@ -9,14 +9,13 @@ import { AuthContext } from '../components/AuthProvider'
 const ChatScreenContainer = styled.div`
 display:flex;
 flex-direction:column;
+height:100vh;
 `
 
 const MessageContainer = styled.div`
 display:flex;
 flex-direction:column;
-/* TODO: Needs to be fixed to grow to available height */
 flex-grow:1;
-height:75vh; 
 overflow-y:auto;
 `
 const MyMessage = styled.div`

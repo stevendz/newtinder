@@ -33,7 +33,7 @@ function SendMessageInput({ id, sender }) {
     }, [])
     return (
         <SendMessageInputContainer onSubmit={handleSendMessage}>
-            <TextField name='message' />
+            <TextField autoComplete='false' name='message' />
             <Button type='submit' disableElevation color='primary' variant="contained" size="large">Send</Button>
         </SendMessageInputContainer>
     )

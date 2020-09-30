@@ -4,9 +4,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ForumIcon from '@material-ui/icons/Forum';
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import { Link, useHistory } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import { app } from '../firebase';
+import { useHistory } from 'react-router-dom';
 
 const Navbar = styled.div`
 display: flex;
@@ -26,20 +24,14 @@ export default function Header({ backButton }) {
                 ? <IconButton onClick={() => history.goBack()}>
                     <ArrowBackIosIcon fontSize='large' />
                 </IconButton>
-                : <IconButton onClick={() => { console.log('profile') }}>
+                : <IconButton onClick={() => history.push('/profile')}>
                     <PersonIcon fontSize='large' />
                 </IconButton>
             }
-            {/* Logout for debugging */}
-            <Button onClick={() => { app.signOut() }}>
-                <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
-            </Button>
-
-            <Link to='/chats'>
-                <IconButton>
-                    <ForumIcon fontSize='large' />
-                </IconButton>
-            </Link>
+            <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
+            <IconButton onClick={() => history.push('/chats')}>
+                <ForumIcon fontSize='large' />
+            </IconButton>
         </Navbar>
     )
 }

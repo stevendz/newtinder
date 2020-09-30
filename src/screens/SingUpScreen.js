@@ -27,7 +27,7 @@ function SignUpScreen({ history }) {
         } catch (error) {
             alert(error)
         }
-    }, [])
+    }, [history])
     return (
         <SignUpForm onSubmit={handleSignUp}>
             <h1>SignUp Screen</h1>

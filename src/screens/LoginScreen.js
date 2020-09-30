@@ -1,7 +1,9 @@
 import { Button, Link, TextField } from '@material-ui/core'
 import { app } from '../firebase'
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
+import { AuthContext } from '../components/AuthProvider'
+import { Redirect } from 'react-router-dom'
 
 const LoginForm = styled.form`
 display:flex;
@@ -27,7 +29,11 @@ function LoginScreen({ history }) {
         } catch (error) {
             alert(error)
         }
-    }, [])
+    }, [history])
+    const { currentUser } = useContext(AuthContext)
+    if (currentUser) {
+        return <Redirect to='/home' />
+    }
     return (
         <LoginForm onSubmit={handleLogin}>
             <h1>Login Screen</h1>

@@ -5,6 +5,8 @@ import ForumIcon from '@material-ui/icons/Forum';
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import { Link, useHistory } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import { app } from '../firebase';
 
 const Navbar = styled.div`
 display: flex;
@@ -28,9 +30,11 @@ export default function Header({ backButton }) {
                     <PersonIcon fontSize='large' />
                 </IconButton>
             }
-            <Link to='/'>
+            {/* Logout for debugging */}
+            <Button onClick={() => { app.signOut() }}>
                 <LogoImg src='https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png' alt='logo' />
-            </Link>
+            </Button>
+
             <Link to='/chats'>
                 <IconButton>
                     <ForumIcon fontSize='large' />

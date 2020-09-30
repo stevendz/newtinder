@@ -1,32 +1,23 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React from 'react';
-import Header from './components/Header';
-import TinderCards from './components/TinderCards';
-import SwipeButtons from './components/SwipeButtons';
-import Chats from './components/Chats';
-import ChatScreen from './components/ChatScreen';
+import ChatScreen from './screens/ChatScreen';
+import AuthProvider from './components/AuthProvider';
+import PrivateRoute from './components/PrivateRoute';
+import ChatsScreen from './screens/ChatsScreen';
+import SwipeScreen from './screens/SwipeScreen';
+import LoginScreen from './screens/LoginScreen';
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <Router>
         <Switch>
-          <Route exact path='/chats/:id'>
-            <Header backButton='/chats' />
-            <ChatScreen />
-          </Route>
-          <Route exact path='/chats'>
-            <Header backButton='/' />
-            <Chats />
-          </Route>
-          <Route path='/'>
-            <Header />
-            <TinderCards />
-            <SwipeButtons />
-          </Route>
+          <PrivateRoute exact path='/chats/:id' component={ChatScreen} />
+          <PrivateRoute exact path='/chats' component={ChatsScreen} />
+          <PrivateRoute exact path='/home' component={SwipeScreen} />
+          <Route path='/' component={LoginScreen} />
         </Switch>
       </Router>
-
-    </div>
+    </AuthProvider>
   );
 }
 

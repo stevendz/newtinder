@@ -1,4 +1,4 @@
-import database from '../firebase'
+import { database } from '../firebase'
 import React, { useEffect, useState } from 'react'
 import Chat from './Chat'
 import InvisibleLink from './InvisibleLink'

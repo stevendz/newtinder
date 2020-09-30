@@ -1,5 +1,5 @@
 import Avatar from '@material-ui/core/Avatar'
-import database from '../firebase'
+import { database } from '../firebase'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 

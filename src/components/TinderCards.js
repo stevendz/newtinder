@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TinderCard from 'react-tinder-card'
 import styled from 'styled-components'
-import database from '../firebase';
+import { database } from '../firebase';
 import MyTinderCard from './MyTinderCard'
 
 const TinderCardsContainer = styled.div`

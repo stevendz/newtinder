@@ -1,8 +1,9 @@
-import database from '../firebase'
+import { database } from '../firebase'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import SendMessageInput from './SendMessageInput'
+import SendMessageInput from '../components/SendMessageInput'
+import Header from '../components/Header'
 
 const ChatScreenContainer = styled.div`
 display:flex;
@@ -34,8 +35,8 @@ border-radius:20px 20px 20px 0;
 `
 const MatchedText = styled.p`
 padding:1.5vh;
-    color: lightsteelblue;
-    text-align:center;
+color: lightsteelblue;
+text-align:center;
 `
 
 function ChatScreen() {
@@ -57,6 +58,7 @@ function ChatScreen() {
     }, [])
     return (
         <ChatScreenContainer>
+            <Header backButton='/chats' />
             <MatchedText>YOU MATCHED WITH {chatPartner?.toUpperCase()} ON 10/08/20</MatchedText>
             <MessageContainer>
                 {messages?.map(message => message.sender === 'Steven'

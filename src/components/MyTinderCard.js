@@ -10,11 +10,11 @@ const Card = styled.div`
     align-items:flex-end;
     padding: 20px;
     width:600px;
-    max-width: 85vw;
+    max-width: 75vw;
     height: 50vh;
     border-radius: 20px;
     color: #fff;
-    box-shadow: 0 18px 50px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 18px 50px 0 rgba(0,0,0,0.25);
     `
 
 function MyTinderCard({ person }) {

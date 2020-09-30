@@ -1,5 +1,5 @@
 import { Button, TextField } from '@material-ui/core'
-import database from '../firebase'
+import { database } from '../firebase'
 import firebase from 'firebase'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -26,7 +26,7 @@ function SendMessageInput({ id, sender }) {
         database.collection('chats').doc(id)
             .update({
                 messages: firebase.firestore.FieldValue.arrayUnion({
-                    sender: 'Maria',
+                    sender: 'Steven',
                     message,
                     timestamp: Date.now()
                 })
